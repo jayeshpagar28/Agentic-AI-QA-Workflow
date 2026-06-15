@@ -250,7 +250,7 @@ td.good{color:#3C9D6B;font-weight:600} td.bad{color:#C9486A;font-weight:600} td.
 
   <div class="callout reveal" style="margin-bottom:22px">
     <h3>🧠 Design Philosophy</h3>
-    <p style="color:var(--muted)">Separation of concerns by cognition: <b>planning</b>, <b>generation</b> and <b>repair</b> are different reasoning tasks, so each is a dedicated agent with least-privilege tools. Read-only agents (Planner, Generator) can never corrupt the codebase; only the Healer holds write access — and even then, fixes follow strict layering rules (selectors live in Page Objects, never in specs). Humans stay in the loop at decision gates, not in the keystrokes.</p>
+    <p style="color:var(--muted)">Separation of concerns by cognition: <b>planning</b>, <b>generation</b> and <b>repair</b> are different reasoning tasks, so each is a dedicated agent with least-privilege tools. The Planner and Generator can author plans and brand-new tests but hold no code-editing tools, so they can never corrupt existing code; only the Healer can edit existing files — and even then, fixes follow strict layering rules (selectors live in Page Objects, never in specs). Humans stay in the loop at decision gates, not in the keystrokes.</p>
   </div>
 
   <div class="grid g3">
@@ -314,9 +314,9 @@ td.good{color:#3C9D6B;font-weight:600} td.bad{color:#C9486A;font-weight:600} td.
       <div class="arch-tier">
         <div class="band">🤖 Agent Layer</div>
         <div class="arch-row">
-          <div class="arch-node n-mint"><span class="ni">🗺️</span><span class="nt">Planner Agent</span><span class="ns">designs the test plan · read-only</span></div>
-          <div class="arch-node n-mint"><span class="ni">⚙️</span><span class="nt">Generator Agent</span><span class="ns">builds POM automation · read-only</span></div>
-          <div class="arch-node n-mint"><span class="ni">🩹</span><span class="nt">Healer / Validation</span><span class="ns">runs, validates &amp; self-heals · write</span></div>
+          <div class="arch-node n-mint"><span class="ni">🗺️</span><span class="nt">Planner Agent</span><span class="ns">designs the test plan · no code edits</span></div>
+          <div class="arch-node n-mint"><span class="ni">⚙️</span><span class="nt">Generator Agent</span><span class="ns">writes new tests &amp; POMs · no code edits</span></div>
+          <div class="arch-node n-mint"><span class="ni">🩹</span><span class="nt">Healer / Validation</span><span class="ns">runs, validates &amp; edits / heals code</span></div>
         </div>
       </div>
       <div class="arch-conn"><div class="rail"><span class="dot"></span><span class="dot"></span></div><span class="lbl">read / write artifacts</span></div>
@@ -364,7 +364,7 @@ td.good{color:#3C9D6B;font-weight:600} td.bad{color:#C9486A;font-weight:600} td.
       <div class="arch-loop-wrap"><span class="arch-loop">🔁 Feedback loop — reports flow back to the User &amp; update Persistent Memory</span></div>
     </div>
   </div>
-  <p class="note">Read-only agents (Planner, Generator) and the write-capable Healer share artifacts through the file "blackboard"; only the Healer mutates code, and only the Sync CLI talks to ClickUp.</p>
+  <p class="note">The Planner designs plans and the Generator writes new tests &amp; POMs; only the Healer can edit existing code, and only the Sync CLI talks to ClickUp. All agents share artifacts through the file "blackboard".</p>
 </section>
 
 <!-- 4. WORKFLOW -->
