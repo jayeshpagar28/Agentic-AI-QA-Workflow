@@ -233,7 +233,7 @@ td.good{color:#3C9D6B;font-weight:600} td.bad{color:#C9486A;font-weight:600} td.
     <div class="card reveal"><h3><span class="ic b-sky">🛠️</span>Technology Stack</h3>
       <div style="margin-top:6px">
         <span class="pill p-lav">Playwright 1.58</span><span class="pill p-mint">TypeScript</span>
-        <span class="pill p-sky">Node.js + tsx</span><span class="pill p-peach">Claude Agent SDK</span>
+        <span class="pill p-sky">Node.js + tsx</span><span class="pill p-peach">Claude Agent SDK</span><span class="pill p-lav">Claude Opus 4.8</span>
         <span class="pill p-pink">MCP (stdio)</span><span class="pill p-yellow">Chromium · Firefox · WebKit</span>
         <span class="pill p-lav">ClickUp API v2/v3</span><span class="pill p-mint">Supabase Auth</span>
         <span class="pill p-sky">Mailinator</span><span class="pill p-peach">Stripe (staging)</span>
@@ -255,15 +255,15 @@ td.good{color:#3C9D6B;font-weight:600} td.bad{color:#C9486A;font-weight:600} td.
 
   <div class="grid g3">
     <div class="card reveal"><h3><span class="ic b-lav">🗺️</span>Planner Agent</h3>
-      <p><b>playwright-test-planner</b> · Claude Sonnet</p>
+      <p><b>playwright-test-planner</b> · Claude Opus 4.8</p>
       <ul><li>Explores the live app via Playwright MCP</li><li>Maps user journeys & edge cases</li><li>Emits a structured markdown test plan</li><li>Tools: browser + planner (read-only)</li></ul>
     </div>
     <div class="card reveal"><h3><span class="ic b-mint">⚙️</span>Generator Agent</h3>
-      <p><b>playwright-test-generator</b> · Claude Sonnet</p>
+      <p><b>playwright-test-generator</b> · Claude Opus 4.8</p>
       <ul><li>Turns the plan into Playwright code</li><li>Builds Page Object Models per module</li><li>Verifies steps live as it writes</li><li>Tools: browser + generator (no edit)</li></ul>
     </div>
     <div class="card reveal"><h3><span class="ic b-peach">🩹</span>Healer Agent</h3>
-      <p><b>playwright-test-healer</b> · Claude Sonnet</p>
+      <p><b>playwright-test-healer</b> · Claude Opus 4.8</p>
       <ul><li>Runs the suite, debugs one failure at a time</li><li>Root-causes selector / timing / data issues</li><li>Fixes the correct layer, never patches specs</li><li>Only agent with Edit / Write access</li></ul>
     </div>
   </div>
@@ -306,7 +306,7 @@ td.good{color:#3C9D6B;font-weight:600} td.bad{color:#C9486A;font-weight:600} td.
       <div class="arch-tier">
         <div class="band">🧠 Orchestration Layer</div>
         <div class="arch-row">
-          <div class="arch-node n-lav wide glow"><span class="ni">🧠</span><span class="nt">Main Orchestrator — Coordinator / Router</span><span class="ns">Claude Agent SDK · decomposes the story &amp; delegates to the right agent</span></div>
+          <div class="arch-node n-lav wide glow"><span class="ni">🧠</span><span class="nt">Main Orchestrator — Coordinator / Router</span><span class="ns">Claude Opus 4.8 · Agent SDK · decomposes the story &amp; delegates to the right agent</span></div>
         </div>
       </div>
       <div class="arch-conn"><div class="rail"><span class="dot"></span><span class="dot"></span></div><span class="lbl">delegates tasks</span></div>
@@ -699,7 +699,7 @@ flowchart TD
 
 <footer class="foot">
   EcomCircles · AI Agentic Test Automation Framework — Technical Strategy Presentation · Generated 2026-06-15<br/>
-  <span style="opacity:.7">Built on Playwright · TypeScript · Claude Agent SDK · Model Context Protocol</span><br/><br/>
+  <span style="opacity:.7">Built on Playwright · TypeScript · Claude Opus 4.8 · Agent SDK · Model Context Protocol</span><br/><br/>
   <span style="opacity:.85"><b>Test Engineer:</b> Jayesh Pagar &nbsp;·&nbsp; <b>Manager:</b> Chaitanya Tipre &nbsp;·&nbsp; <b>Project Manager:</b> Sudharshan Lokhande</span>
 </footer>
 
