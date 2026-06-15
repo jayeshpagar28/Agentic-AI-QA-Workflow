@@ -100,6 +100,32 @@ td.good{color:#3C9D6B;font-weight:600} td.bad{color:#C9486A;font-weight:600} td.
 /* DIAGRAM */
 .diagram{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow-sm);overflow-x:auto}
 .mermaid{display:flex;justify-content:center}
+
+/* ===== Custom layered architecture diagram ===== */
+.arch{max-width:880px;margin:0 auto}
+.arch-tier{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-sm);padding:15px 18px 17px;position:relative}
+.arch-tier .band{display:flex;align-items:center;gap:8px;font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.arch-row{display:flex;flex-wrap:wrap;gap:11px;justify-content:center}
+.arch-node{flex:1 1 150px;min-width:130px;max-width:230px;border-radius:13px;padding:11px 12px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;transition:.25s;border:1px solid var(--line)}
+.arch-node:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm)}
+.arch-node .ni{font-size:19px;line-height:1}
+.arch-node .nt{font-weight:700;font-size:.88rem;color:var(--ink)}
+.arch-node .ns{font-size:.7rem;font-weight:500;color:var(--muted);line-height:1.3}
+.arch-node.wide{max-width:420px;flex-basis:100%}
+.arch-node.glow{animation:nodepulse 2.8s ease-in-out infinite}
+@keyframes nodepulse{0%,100%{box-shadow:0 0 0 0 rgba(139,127,214,.0)}50%{box-shadow:0 0 0 6px rgba(139,127,214,.10)}}
+.n-pink{background:var(--pink-soft)} .n-lav{background:var(--lav-soft)} .n-mint{background:var(--mint-soft)}
+.n-yellow{background:var(--yellow-soft)} .n-sky{background:var(--sky-soft)} .n-peach{background:var(--peach-soft)}
+/* animated connector */
+.arch-conn{height:42px;display:flex;align-items:center;justify-content:center;position:relative}
+.arch-conn .rail{width:3px;height:100%;background:linear-gradient(var(--lav),var(--sky));border-radius:3px;position:relative;overflow:visible}
+.arch-conn .rail .dot{position:absolute;left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--accent);box-shadow:0 0 9px 2px rgba(139,127,214,.55);animation:flowdown 2.2s linear infinite}
+.arch-conn .rail .dot:nth-child(2){animation-delay:1.1s}
+@keyframes flowdown{0%{top:-6px;opacity:0}12%{opacity:1}88%{opacity:1}100%{top:100%;opacity:0}}
+.arch-conn .lbl{position:absolute;left:calc(50% + 16px);font-size:.66rem;font-weight:600;color:var(--muted);white-space:nowrap;background:var(--card);padding:2px 8px;border-radius:7px;border:1px solid var(--line)}
+.arch-loop{margin-top:12px;text-align:center;font-size:.78rem;font-weight:600;color:var(--accent);background:linear-gradient(120deg,var(--lav-soft),var(--sky-soft));border:1px dashed var(--lav);border-radius:30px;padding:9px 18px;display:inline-block}
+.arch-loop-wrap{text-align:center;margin-top:14px}
+@media(prefers-reduced-motion:reduce){.arch-conn .rail .dot,.arch-node.glow{animation:none}.arch-conn .rail .dot{display:none}}
 .chart-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm)}
 .chart-card h4{margin-bottom:14px;font-size:1rem}
 .chart-box{position:relative;height:280px}
@@ -267,60 +293,76 @@ td.good{color:#3C9D6B;font-weight:600} td.bad{color:#C9486A;font-weight:600} td.
   <div class="sec-head"><div class="sec-num">03</div><h2>System Architecture</h2></div>
   <p class="sec-sub">Every component and its communication path — from the human operator, through the orchestrator and agents, down to the tool layer, the application under test, and the reporting back-channel.</p>
   <div class="diagram reveal">
-    <pre class="mermaid">
-flowchart TB
-  U([👤 QA Engineer / User]):::user
-  subgraph ORCH["🧠 Main Orchestrator — Claude Agent SDK"]
-    direction TB
-    O[Coordinator / Router]:::orch
-    P[🗺️ Planner Agent]:::agent
-    E[⚙️ Generator Agent]:::agent
-    V[🩹 Healer / Validation Agent]:::agent
-  end
-  subgraph MEM["💾 Memory &amp; Knowledge"]
-    M1[(CLAUDE.md<br/>Persistent Memory)]:::mem
-    M2[/user-stories · specs<br/>screenshots · results/]:::mem
-    KB[(📚 Knowledge Base<br/>Prompts · Test Plans)]:::kb
-  end
-  subgraph TOOLS["🔌 Tool Layer — MCP"]
-    T1[Playwright MCP<br/>Browser Tools]:::tool
-    T2[File / Code Tools]:::tool
-    T3[ClickUp Sync CLI]:::tool
-  end
-  subgraph EXT["☁️ Application &amp; External APIs"]
-    APP[(staging.ecomcircles.com)]:::ext
-    SB[Supabase Auth]:::ext
-    ST[Stripe Billing]:::ext
-    MA[Mailinator]:::ext
-    CU[ClickUp API]:::ext
-  end
-  REP[📊 Reporting Engine<br/>MD · XLSX · HTML]:::rep
-  LOG[📡 Logging &amp; Monitoring<br/>traces · console · network]:::log
+    <div class="arch">
 
-  U <-->|goal &amp; approvals| O
-  O --> P & E & V
-  P & E & V <-->|read / write artifacts| M2
-  O <-->|recall lessons| M1
-  P & E -.->|reference| KB
-  P & E & V -->|invoke| T1 & T2
-  V --> T3
-  T1 -->|drive browser| APP
-  APP --> SB & ST
-  T1 -.->|poll invites| MA
-  T3 -->|defects &amp; sprints| CU
-  T1 --> LOG
-  V --> REP
-  REP --> U
-  classDef user fill:#FFE7EC,stroke:#FFC2D1,color:#3A3A52,stroke-width:2px
-  classDef orch fill:#ECE9FB,stroke:#C9C2F2,color:#3A3A52,stroke-width:2px
-  classDef agent fill:#E5F7EC,stroke:#B7E4C7,color:#3A3A52,stroke-width:1.5px
-  classDef mem fill:#FFF6DA,stroke:#FFE6A0,color:#3A3A52
-  classDef kb fill:#FFEEE1,stroke:#FFD7BC,color:#3A3A52
-  classDef tool fill:#E2F6FB,stroke:#AEE3F0,color:#3A3A52
-  classDef ext fill:#F2EFFC,stroke:#C9C2F2,color:#3A3A52
-  classDef rep fill:#E5F7EC,stroke:#B7E4C7,color:#3A3A52,stroke-width:2px
-  classDef log fill:#FFE7EC,stroke:#FFC2D1,color:#3A3A52
-    </pre>
+      <div class="arch-tier">
+        <div class="band">👤 User Layer</div>
+        <div class="arch-row">
+          <div class="arch-node n-pink wide"><span class="ni">👤</span><span class="nt">QA Engineer / User</span><span class="ns">Sets the goal · approves decisions · receives results</span></div>
+        </div>
+      </div>
+      <div class="arch-conn"><div class="rail"><span class="dot"></span><span class="dot"></span></div><span class="lbl">goal &amp; approvals ↓ · results ↑</span></div>
+
+      <div class="arch-tier">
+        <div class="band">🧠 Orchestration Layer</div>
+        <div class="arch-row">
+          <div class="arch-node n-lav wide glow"><span class="ni">🧠</span><span class="nt">Main Orchestrator — Coordinator / Router</span><span class="ns">Claude Agent SDK · decomposes the story &amp; delegates to the right agent</span></div>
+        </div>
+      </div>
+      <div class="arch-conn"><div class="rail"><span class="dot"></span><span class="dot"></span></div><span class="lbl">delegates tasks</span></div>
+
+      <div class="arch-tier">
+        <div class="band">🤖 Agent Layer</div>
+        <div class="arch-row">
+          <div class="arch-node n-mint"><span class="ni">🗺️</span><span class="nt">Planner Agent</span><span class="ns">designs the test plan · read-only</span></div>
+          <div class="arch-node n-mint"><span class="ni">⚙️</span><span class="nt">Generator Agent</span><span class="ns">builds POM automation · read-only</span></div>
+          <div class="arch-node n-mint"><span class="ni">🩹</span><span class="nt">Healer / Validation</span><span class="ns">runs, validates &amp; self-heals · write</span></div>
+        </div>
+      </div>
+      <div class="arch-conn"><div class="rail"><span class="dot"></span><span class="dot"></span></div><span class="lbl">read / write artifacts</span></div>
+
+      <div class="arch-tier">
+        <div class="band">💾 Memory &amp; Knowledge Layer</div>
+        <div class="arch-row">
+          <div class="arch-node n-yellow"><span class="ni">🧠</span><span class="nt">Persistent Memory</span><span class="ns">CLAUDE.md · lessons learned</span></div>
+          <div class="arch-node n-yellow"><span class="ni">🗂️</span><span class="nt">Artifact Blackboard</span><span class="ns">stories · specs · screenshots · results</span></div>
+          <div class="arch-node n-peach"><span class="ni">📚</span><span class="nt">Knowledge Base</span><span class="ns">prompts · test plans</span></div>
+        </div>
+      </div>
+      <div class="arch-conn"><div class="rail"><span class="dot"></span><span class="dot"></span></div><span class="lbl">invoke tools</span></div>
+
+      <div class="arch-tier">
+        <div class="band">🔌 Tool Layer — Model Context Protocol</div>
+        <div class="arch-row">
+          <div class="arch-node n-sky"><span class="ni">🎭</span><span class="nt">Playwright MCP</span><span class="ns">browser tools</span></div>
+          <div class="arch-node n-sky"><span class="ni">📝</span><span class="nt">File / Code Tools</span><span class="ns">read · write · edit</span></div>
+          <div class="arch-node n-sky"><span class="ni">🔗</span><span class="nt">ClickUp Sync CLI</span><span class="ns">defects &amp; sprints</span></div>
+        </div>
+      </div>
+      <div class="arch-conn"><div class="rail"><span class="dot"></span><span class="dot"></span></div><span class="lbl">drive · poll · sync</span></div>
+
+      <div class="arch-tier">
+        <div class="band">☁️ Application &amp; External APIs</div>
+        <div class="arch-row">
+          <div class="arch-node n-lav"><span class="ni">🌐</span><span class="nt">App Under Test</span><span class="ns">staging.ecomcircles.com</span></div>
+          <div class="arch-node n-lav"><span class="ni">🔐</span><span class="nt">Supabase Auth</span><span class="ns">sessions</span></div>
+          <div class="arch-node n-lav"><span class="ni">💳</span><span class="nt">Stripe Billing</span><span class="ns">plans</span></div>
+          <div class="arch-node n-lav"><span class="ni">📧</span><span class="nt">Mailinator</span><span class="ns">invites</span></div>
+          <div class="arch-node n-lav"><span class="ni">📋</span><span class="nt">ClickUp API</span><span class="ns">tasks · docs</span></div>
+        </div>
+      </div>
+      <div class="arch-conn"><div class="rail"><span class="dot"></span><span class="dot"></span></div><span class="lbl">results · evidence</span></div>
+
+      <div class="arch-tier">
+        <div class="band">📊 Reporting &amp; Monitoring Layer</div>
+        <div class="arch-row">
+          <div class="arch-node n-mint"><span class="ni">📊</span><span class="nt">Reporting Engine</span><span class="ns">MD · XLSX · HTML reports + coverage matrix</span></div>
+          <div class="arch-node n-pink"><span class="ni">📡</span><span class="nt">Logging &amp; Monitoring</span><span class="ns">traces · console · network status</span></div>
+        </div>
+      </div>
+
+      <div class="arch-loop-wrap"><span class="arch-loop">🔁 Feedback loop — reports flow back to the User &amp; update Persistent Memory</span></div>
+    </div>
   </div>
   <p class="note">Read-only agents (Planner, Generator) and the write-capable Healer share artifacts through the file "blackboard"; only the Healer mutates code, and only the Sync CLI talks to ClickUp.</p>
 </section>
