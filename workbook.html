@@ -103,7 +103,7 @@ li b{color:var(--ink)}
       <div class="stat"><div class="n">1M</div><div class="l">Context Window</div></div>
     </div>
     <p class="note">*Suite validated to pass at retries = 0; one retry is kept only as a safety net for transient staging blips.</p>
-    <div class="brandline">EcomCircles · AI Agentic QA</div><div class="pnum">01</div>
+    <div class="brandline">AI Agentic QA · Educational Workbook</div><div class="pnum">01</div>
   </div>
 
   <!-- PROBLEM -->
@@ -112,14 +112,14 @@ li b{color:var(--ink)}
     <h2 class="title">Two failure modes that break automation</h2>
     <div class="grid g2">
       <div class="box"><h4><span class="ic b-pink">🎲</span>Flaky Tests</h4>
-        <p>Tests that pass and fail without a code change destroy trust. On this platform the root cause was authentication: <b>Supabase stores sessions in localStorage and rotates refresh tokens on every refresh</b>, so reusing a saved <code>storageState</code> file went stale and failed intermittently — plus concurrent logins hit rate limits.</p>
+        <p>Tests that pass and fail without a code change destroy trust. In a real-world case the root cause was authentication: <b>a token-based auth provider stored sessions in localStorage and rotated refresh tokens on every refresh</b>, so reusing a saved <code>storageState</code> file went stale and failed intermittently — plus concurrent logins hit rate limits.</p>
       </div>
       <div class="box"><h4><span class="ic b-sky">⏳</span>Long-Running Agents</h4>
         <p>An AI agent generating and healing hundreds of tests can run for a long time. Without help it loses earlier context, repeats work, drifts off task, or dies mid-run — wasting tokens and producing inconsistent output.</p>
       </div>
     </div>
     <div class="callout"><h4>🎯 The goal</h4><p>Make every run <b>deterministic</b> (no flakiness), <b>durable</b> (survives long autonomous sessions), and <b>accurate</b> (results you can publish to stakeholders).</p></div>
-    <div class="brandline">EcomCircles · AI Agentic QA</div><div class="pnum">02</div>
+    <div class="brandline">AI Agentic QA · Educational Workbook</div><div class="pnum">02</div>
   </div>
 
   <!-- ARCHITECTURE -->
@@ -153,7 +153,7 @@ flowchart TB
       </pre>
     </div>
     <p class="note">Planner &amp; Generator hold no code-editing tools (can't corrupt existing code); only the Healer edits files. Only the ClickUp CLI talks to ClickUp.</p>
-    <div class="brandline">EcomCircles · AI Agentic QA</div><div class="pnum">03</div>
+    <div class="brandline">AI Agentic QA · Educational Workbook</div><div class="pnum">03</div>
   </div>
 
   <!-- FLAKY TEST MANAGEMENT -->
@@ -183,7 +183,7 @@ flowchart LR
       <div class="box"><h4><span class="ic b-sky">🧭</span>No blind waits</h4><p><code>gotoAuthed()</code> retries the SPA hydration bounce; <b>zero</b> <code>waitForTimeout()</code> — waits are tied to real signals.</p></div>
     </div>
     <p class="note">Result: the suite passes at <b>retries = 0</b>; the single configured retry is a safety net, not a flake mask.</p>
-    <div class="brandline">EcomCircles · AI Agentic QA</div><div class="pnum">04</div>
+    <div class="brandline">AI Agentic QA · Educational Workbook</div><div class="pnum">04</div>
   </div>
 
   <!-- LONG RUNNING AGENTS -->
@@ -218,7 +218,7 @@ flowchart TB
       <div class="box"><h4><span class="ic b-mint">💾</span>Persistent memory</h4><p>Hard-won lessons (e.g. the auth-flake fix) are written to memory and recalled in future runs.</p></div>
     </div>
     <p class="note">Roadmap: a dedicated <b>Long-Running Agent Harness</b> adds heartbeats, checkpoints &amp; auto-recovery for multi-hour, unattended runs.</p>
-    <div class="brandline">EcomCircles · AI Agentic QA</div><div class="pnum">05</div>
+    <div class="brandline">AI Agentic QA · Educational Workbook</div><div class="pnum">05</div>
   </div>
 
   <!-- ACCURACY -->
@@ -240,7 +240,7 @@ flowchart TB
       <div class="stat"><div class="n">102</div><div class="l">Evidence Shots</div></div>
     </div>
     <p class="note">Every defect is traced requirement → test → pass/fail → ClickUp ticket with screenshots.</p>
-    <div class="brandline">EcomCircles · AI Agentic QA</div><div class="pnum">06</div>
+    <div class="brandline">AI Agentic QA · Educational Workbook</div><div class="pnum">06</div>
   </div>
 
   <!-- CLOSE -->
@@ -253,13 +253,13 @@ flowchart TB
       <div class="box"><h4><span class="ic b-sky">⏳</span>Durable</h4><p>1M context + memory + self-healing.</p></div>
       <div class="box"><h4><span class="ic b-lav">🎯</span>Accurate</h4><p>Traceable, evidence-backed results.</p></div>
     </div>
-    <a class="link" href="https://jayeshpagar28.github.io/Agentic-AI-QA-Workflow/">▶ Full interactive presentation → jayeshpagar28.github.io/Agentic-AI-QA-Workflow</a>
+    <p class="link">▶ A reference pattern you can apply to any web app and any test suite.</p>
     <div class="team">
       <div class="tm"><span class="ic b-mint">🧪</span><div><div class="r">Test Engineer</div><div class="nm">Jayesh Pagar</div></div></div>
       <div class="tm"><span class="ic b-lav">🧭</span><div><div class="r">Manager</div><div class="nm">Chaitanya Tipre</div></div></div>
       <div class="tm"><span class="ic b-peach">📋</span><div><div class="r">Project Manager</div><div class="nm">Sudharshan Lokhande</div></div></div>
     </div>
-    <div class="brandline">EcomCircles · AI Agentic QA</div><div class="pnum">07</div>
+    <div class="brandline">AI Agentic QA · Educational Workbook</div><div class="pnum">07</div>
   </div>
 
 </div>
