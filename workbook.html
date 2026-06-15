@@ -34,7 +34,7 @@ h1,h2,h3,h4{font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:-.02em;lin
 .kicker{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--lav-soft);padding:7px 15px;border-radius:30px;margin-bottom:18px}
 h2.title{font-size:2rem;font-weight:800;margin-bottom:10px}
 h2.title.big{font-size:2.7rem}
-.sub{color:var(--muted);font-size:1.05rem;max-width:62ch}
+.sub{color:var(--muted);font-size:1.05rem;max-width:64ch}
 p{font-size:.97rem;margin-top:10px;color:#4a4a63}
 .lead{font-size:1.05rem}
 ul{list-style:none;margin-top:14px}
@@ -51,26 +51,22 @@ li b{color:var(--ink)}
 .b-pink{background:var(--pink-soft)}.b-sky{background:var(--sky-soft)}.b-yellow{background:var(--yellow-soft)}
 .diagram{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:18px;overflow-x:auto}
 .mermaid{display:flex;justify-content:center}
-.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
-.stat{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:18px 12px;text-align:center}
-.stat .n{font-family:'Plus Jakarta Sans';font-weight:800;font-size:2rem;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.stat .l{font-size:.74rem;color:var(--muted);font-weight:600;margin-top:2px}
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.pr{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:20px 16px;text-align:center}
+.pr .pi{font-size:26px}
+.pr .pt{font-family:'Plus Jakarta Sans';font-weight:800;font-size:1.05rem;margin-top:6px}
+.pr .pd{font-size:.8rem;color:var(--muted);margin-top:3px}
 .callout{background:linear-gradient(120deg,var(--lav-soft),var(--sky-soft));border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-top:18px}
 .callout h4{margin-bottom:6px}
-.tag{display:inline-block;font-size:.74rem;font-weight:700;padding:5px 13px;border-radius:30px;margin:3px 5px 3px 0;background:var(--card);border:1px solid var(--line)}
 .before-after{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
 .ba{border-radius:16px;padding:18px}
 .ba.before{background:var(--pink-soft);border:1px solid var(--pink)}
 .ba.after{background:var(--mint-soft);border:1px solid var(--mint)}
 .ba h4{font-size:.95rem;margin-bottom:8px}
 .ba li::before{background:transparent;content:"–";left:2px;top:0}
-.team{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
-.tm{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px 16px}
-.tm .r{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
-.tm .nm{font-family:'Plus Jakarta Sans';font-weight:700}
-.link{display:inline-block;margin-top:18px;font-weight:700;color:var(--accent);font-size:1rem}
+.link{display:inline-block;margin-top:20px;font-weight:700;color:var(--accent);font-size:1.05rem}
 .note{font-size:.78rem;color:var(--muted);font-style:italic;margin-top:14px}
-@media(max-width:640px){.page{padding:30px 22px}.g2,.g3,.stat-row,.before-after{grid-template-columns:1fr}.stat-row{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.page{padding:30px 22px}.g2,.g3,.principles,.before-after{grid-template-columns:1fr}}
 @media print{
   body{background:#fff}.toolbar{display:none}.deck{margin:0;max-width:none;padding:0}
   .page{box-shadow:none;border:none;border-radius:0;margin:0;min-height:100vh;page-break-after:always;break-after:page;padding:40px 46px}
@@ -80,7 +76,7 @@ li b{color:var(--ink)}
 </head>
 <body>
 <div class="toolbar">
-  <span>📘 Workbook · share as a LinkedIn document/carousel</span>
+  <span>📘 Educational workbook · share as a LinkedIn document/carousel</span>
   <button class="btn" onclick="window.print()">⬇ Save as PDF</button>
 </div>
 
@@ -88,21 +84,15 @@ li b{color:var(--ink)}
 
   <!-- COVER -->
   <div class="page">
-    <span class="kicker">◆ Engineering Workbook · 2026</span>
+    <span class="kicker">◆ Engineering Workbook · Educational</span>
     <h2 class="title big">Killing Flaky Tests &amp;<br/>Running AI Agents for Hours</h2>
-    <p class="sub lead">How an AI Agentic QA framework — powered by <b>Claude Opus 4.8</b> and a disciplined agent <b>harness</b> — eliminates test flakiness, sustains long-running autonomous runs, and keeps results accurate.</p>
-    <div class="team">
-      <div class="tm"><span class="ic b-mint">🧪</span><div><div class="r">Test Engineer</div><div class="nm">Jayesh Pagar</div></div></div>
-      <div class="tm"><span class="ic b-lav">🧭</span><div><div class="r">Manager</div><div class="nm">Chaitanya Tipre</div></div></div>
-      <div class="tm"><span class="ic b-peach">📋</span><div><div class="r">Project Manager</div><div class="nm">Sudharshan Lokhande</div></div></div>
+    <p class="sub lead">A real-world engineering pattern for building test automation that is <b>reliable</b>, <b>autonomous</b>, and <b>accurate</b> — powered by a large-context AI model and a disciplined agent <b>harness</b>.</p>
+    <div class="principles">
+      <div class="pr"><div class="pi">🔒</div><div class="pt">Reliable</div><div class="pd">Flakiness engineered out</div></div>
+      <div class="pr"><div class="pi">⏳</div><div class="pt">Durable</div><div class="pd">Agents run for hours</div></div>
+      <div class="pr"><div class="pi">🎯</div><div class="pt">Accurate</div><div class="pd">Results you can trust</div></div>
     </div>
-    <div class="stat-row">
-      <div class="stat"><div class="n">240</div><div class="l">Automated Tests</div></div>
-      <div class="stat"><div class="n">0</div><div class="l">Flaky-retry Reliance*</div></div>
-      <div class="stat"><div class="n">3</div><div class="l">Autonomous Agents</div></div>
-      <div class="stat"><div class="n">1M</div><div class="l">Context Window</div></div>
-    </div>
-    <p class="note">*Suite validated to pass at retries = 0; one retry is kept only as a safety net for transient staging blips.</p>
+    <p class="note">A vendor-neutral reference pattern — applicable to any web application and any test suite.</p>
     <div class="brandline">AI Agentic QA · Educational Workbook</div><div class="pnum">01</div>
   </div>
 
@@ -112,35 +102,35 @@ li b{color:var(--ink)}
     <h2 class="title">Two failure modes that break automation</h2>
     <div class="grid g2">
       <div class="box"><h4><span class="ic b-pink">🎲</span>Flaky Tests</h4>
-        <p>Tests that pass and fail without a code change destroy trust. In a real-world case the root cause was authentication: <b>a token-based auth provider stored sessions in localStorage and rotated refresh tokens on every refresh</b>, so reusing a saved <code>storageState</code> file went stale and failed intermittently — plus concurrent logins hit rate limits.</p>
+        <p>Tests that pass and fail without any code change destroy trust in the whole suite. A classic root cause is <b>authentication state</b>: when a token-based auth provider stores sessions in browser storage and rotates refresh tokens, reusing a saved session goes stale and fails intermittently — and logging in concurrently trips rate limits.</p>
       </div>
       <div class="box"><h4><span class="ic b-sky">⏳</span>Long-Running Agents</h4>
-        <p>An AI agent generating and healing hundreds of tests can run for a long time. Without help it loses earlier context, repeats work, drifts off task, or dies mid-run — wasting tokens and producing inconsistent output.</p>
+        <p>An AI agent that generates and repairs many tests can run for a long time. Without help it <b>loses earlier context</b>, repeats work, drifts off task, or dies mid-run — wasting compute and producing inconsistent output.</p>
       </div>
     </div>
-    <div class="callout"><h4>🎯 The goal</h4><p>Make every run <b>deterministic</b> (no flakiness), <b>durable</b> (survives long autonomous sessions), and <b>accurate</b> (results you can publish to stakeholders).</p></div>
+    <div class="callout"><h4>🎯 The goal</h4><p>Make every run <b>deterministic</b> (no flakiness), <b>durable</b> (survives long autonomous sessions), and <b>accurate</b> (a quality signal you can act on).</p></div>
     <div class="brandline">AI Agentic QA · Educational Workbook</div><div class="pnum">02</div>
   </div>
 
   <!-- ARCHITECTURE -->
   <div class="page">
-    <span class="kicker">System Architecture</span>
+    <span class="kicker">The Pattern</span>
     <h2 class="title">One orchestrator, three specialist agents</h2>
-    <p>The Claude Opus 4.8 orchestrator decomposes a user story and delegates to least-privilege sub-agents that collaborate through a shared file "blackboard".</p>
+    <p>A large-context AI orchestrator decomposes a requirement and delegates to least-privilege sub-agents that collaborate through a shared file "blackboard".</p>
     <div class="diagram">
       <pre class="mermaid">
 flowchart TB
-  U([👤 User / QA]):::u --> O[🧠 Orchestrator<br/>Claude Opus 4.8 · Agent SDK]:::o
-  O --> P[🗺️ Planner<br/>designs plan]:::a
+  U([👤 Engineer]):::u --> O[🧠 Orchestrator<br/>large-context AI model]:::o
+  O --> P[🗺️ Planner<br/>designs the plan]:::a
   O --> G[⚙️ Generator<br/>writes new tests]:::a
   O --> H[🩹 Healer<br/>edits &amp; heals code]:::a
-  P -.-> MEM[(💾 Memory · CLAUDE.md<br/>specs · screenshots)]:::m
+  P -.-> MEM[(💾 Memory<br/>plans · artifacts · lessons)]:::m
   G -.-> MEM
   H -.-> MEM
-  P --> TL[🔌 Tool Layer — MCP<br/>Playwright · Files · ClickUp]:::t
+  P --> TL[🔌 Tool Layer<br/>browser · files · trackers]:::t
   G --> TL
   H --> TL
-  TL --> APP[(☁️ App + APIs<br/>staging · Supabase · ClickUp)]:::e
+  TL --> APP[(☁️ App under test<br/>+ external services)]:::e
   H --> REP[📊 Reports + 📡 Monitoring]:::r
   REP --> U
   classDef u fill:#FFE7EC,stroke:#FFC2D1,color:#3A3A52,stroke-width:2px
@@ -152,25 +142,25 @@ flowchart TB
   classDef r fill:#E5F7EC,stroke:#B7E4C7,color:#3A3A52,stroke-width:2px
       </pre>
     </div>
-    <p class="note">Planner &amp; Generator hold no code-editing tools (can't corrupt existing code); only the Healer edits files. Only the ClickUp CLI talks to ClickUp.</p>
+    <p class="note">Least privilege: the Planner &amp; Generator hold no code-editing tools, so they can author plans and new tests but never corrupt existing code — only the Healer edits files.</p>
     <div class="brandline">AI Agentic QA · Educational Workbook</div><div class="pnum">03</div>
   </div>
 
   <!-- FLAKY TEST MANAGEMENT -->
   <div class="page">
     <span class="kicker">Solution 1 · Reliability</span>
-    <h2 class="title">How flaky tests are eliminated</h2>
+    <h2 class="title">How to eliminate flaky tests</h2>
     <div class="diagram">
       <pre class="mermaid">
 flowchart LR
   W[Worker starts]:::s --> L{Auth fixture<br/>worker-scoped}:::d
-  L -->|login once| C[Live BrowserContext<br/>token refreshed in-memory]:::ok
-  C --> R{Supabase<br/>rate-limited?}:::d
+  L -->|log in once| C[Live session context<br/>tokens refresh in memory]:::ok
+  C --> R{Provider<br/>rate-limited?}:::d
   R -->|yes| B[Staggered start +<br/>exponential backoff]:::w
   B --> C
   R -->|no| T1[Test 1]:::s
   C --> T1 --> T2[Test 2]:::s --> Tn[Test N]:::s
-  Tn --> NAV[gotoAuthed retries<br/>SPA hydration bounce]:::ok
+  Tn --> NAV[Smart navigation retries<br/>on app hydration races]:::ok
   classDef s fill:#ECE9FB,stroke:#C9C2F2,color:#3A3A52
   classDef d fill:#FFF6DA,stroke:#FFE6A0,color:#3A3A52,stroke-width:2px
   classDef ok fill:#E5F7EC,stroke:#B7E4C7,color:#3A3A52
@@ -178,11 +168,11 @@ flowchart LR
       </pre>
     </div>
     <div class="grid g3">
-      <div class="box"><h4><span class="ic b-mint">🔑</span>Worker-scoped auth</h4><p>Each worker logs in <b>once</b> into a live context kept alive for its lifetime — tokens refresh in memory, never from a stale file.</p></div>
-      <div class="box"><h4><span class="ic b-yellow">⏱️</span>Backoff &amp; stagger</h4><p>Staggered worker startup + exponential backoff absorbs Supabase concurrent-login rate limits.</p></div>
-      <div class="box"><h4><span class="ic b-sky">🧭</span>No blind waits</h4><p><code>gotoAuthed()</code> retries the SPA hydration bounce; <b>zero</b> <code>waitForTimeout()</code> — waits are tied to real signals.</p></div>
+      <div class="box"><h4><span class="ic b-mint">🔑</span>Log in once per worker</h4><p>Each parallel worker authenticates <b>once</b> into a live session kept alive for its lifetime — tokens refresh in memory, never from a stale file.</p></div>
+      <div class="box"><h4><span class="ic b-yellow">⏱️</span>Backoff &amp; stagger</h4><p>Staggered startup + exponential backoff absorbs the auth provider's concurrent-login rate limits.</p></div>
+      <div class="box"><h4><span class="ic b-sky">🧭</span>No blind waits</h4><p>Tie every wait to a <b>real signal</b> (an element, a URL, a response) — never a fixed sleep that masks timing bugs.</p></div>
     </div>
-    <p class="note">Result: the suite passes at <b>retries = 0</b>; the single configured retry is a safety net, not a flake mask.</p>
+    <p class="note">Principle: a suite should pass at <b>zero retries</b>. Keep one retry only as a safety net for genuine infrastructure blips — never as a flake mask.</p>
     <div class="brandline">AI Agentic QA · Educational Workbook</div><div class="pnum">04</div>
   </div>
 
@@ -190,17 +180,17 @@ flowchart LR
   <div class="page">
     <span class="kicker">Solution 2 · Endurance</span>
     <h2 class="title">How long-running agents stay on track</h2>
-    <p>The model and the harness together let agents work for hours without losing the thread.</p>
+    <p>The <b>model</b> and the <b>harness</b> work together so an agent can run for hours without losing the thread.</p>
     <div class="diagram">
       <pre class="mermaid">
 flowchart TB
-  G([Goal]):::s --> CTX[🪟 1M-token context<br/>Claude Opus 4.8]:::o
-  CTX --> RUN[Agent executes:<br/>perceive → reason → act → observe]:::a
+  G([Goal]):::s --> CTX[🪟 Large context window<br/>holds the whole task]:::o
+  CTX --> RUN[Agent loop:<br/>perceive → reason → act → observe]:::a
   RUN --> CK{Context<br/>filling up?}:::d
-  CK -->|yes| SUM[Summarize + carry forward<br/>context management]:::w
+  CK -->|yes| SUM[Summarize &amp; carry state forward<br/>context management]:::w
   SUM --> RUN
   CK -->|no| RUN
-  RUN --> MEM[(💾 Persistent memory<br/>CLAUDE.md lessons)]:::m
+  RUN --> MEM[(💾 Persistent memory<br/>durable lessons)]:::m
   MEM -.->|recall next session| CTX
   RUN --> DONE([Consistent output<br/>across the whole run]):::ok
   classDef s fill:#ECE9FB,stroke:#C9C2F2,color:#3A3A52
@@ -213,52 +203,45 @@ flowchart TB
       </pre>
     </div>
     <div class="grid g3">
-      <div class="box"><h4><span class="ic b-sky">🪟</span>1M context</h4><p>Opus 4.8's large window holds the whole task — plan, code and failures — in view at once.</p></div>
-      <div class="box"><h4><span class="ic b-peach">🗜️</span>Context management</h4><p>When context grows, the harness summarizes and carries state forward so work continues seamlessly.</p></div>
-      <div class="box"><h4><span class="ic b-mint">💾</span>Persistent memory</h4><p>Hard-won lessons (e.g. the auth-flake fix) are written to memory and recalled in future runs.</p></div>
+      <div class="box"><h4><span class="ic b-sky">🪟</span>Large context window</h4><p>A model with a very large context (e.g. a 1M-token window) keeps the whole task — plan, code and failures — in view at once.</p></div>
+      <div class="box"><h4><span class="ic b-peach">🗜️</span>Context management</h4><p>When context grows, the harness summarizes and carries state forward so work continues seamlessly past any single window.</p></div>
+      <div class="box"><h4><span class="ic b-mint">💾</span>Persistent memory</h4><p>Durable lessons are written to memory and recalled in future runs, so the agent gets smarter over time.</p></div>
     </div>
-    <p class="note">Roadmap: a dedicated <b>Long-Running Agent Harness</b> adds heartbeats, checkpoints &amp; auto-recovery for multi-hour, unattended runs.</p>
+    <p class="note">Going further: a dedicated long-running harness adds heartbeats, checkpoints &amp; auto-recovery for multi-hour, unattended runs.</p>
     <div class="brandline">AI Agentic QA · Educational Workbook</div><div class="pnum">05</div>
   </div>
 
   <!-- ACCURACY -->
   <div class="page">
     <span class="kicker">Solution 3 · Accuracy</span>
-    <h2 class="title">Why the results are trustworthy</h2>
+    <h2 class="title">Why the results become trustworthy</h2>
     <div class="before-after">
-      <div class="ba before"><h4>❌ Without the framework</h4>
-        <ul><li>Random pass/fail, retries hide bugs</li><li>Selectors patched inside specs → drift</li><li>Agents forget context, repeat work</li><li>Numbers nobody trusts</li></ul>
+      <div class="ba before"><h4>❌ Without the pattern</h4>
+        <ul><li>Random pass/fail; retries hide real bugs</li><li>Selectors patched inside tests → drift &amp; rot</li><li>Agents forget context and repeat work</li><li>Numbers nobody trusts</li></ul>
       </div>
-      <div class="ba after"><h4>✅ With the framework</h4>
-        <ul><li>Deterministic auth, real-signal waits</li><li>Fixes layered: selectors live in Page Objects</li><li>Self-healing repairs the right layer</li><li>Evidence-backed, auditable results</li></ul>
+      <div class="ba after"><h4>✅ With the pattern</h4>
+        <ul><li>Deterministic auth &amp; real-signal waits</li><li>Fixes layered — locators live in Page Objects</li><li>Self-healing repairs the right layer</li><li>Evidence-backed, auditable results</li></ul>
       </div>
     </div>
-    <div class="stat-row">
-      <div class="stat"><div class="n">5</div><div class="l">Modules</div></div>
-      <div class="stat"><div class="n">240</div><div class="l">Test Cases</div></div>
-      <div class="stat"><div class="n">19</div><div class="l">Page Objects</div></div>
-      <div class="stat"><div class="n">102</div><div class="l">Evidence Shots</div></div>
+    <div class="grid g3" style="margin-top:18px">
+      <div class="box"><h4><span class="ic b-lav">🧱</span>Layered fixes</h4><p>Repair at the correct abstraction (Page Object, fixture, config) — never patch a selector inside a test.</p></div>
+      <div class="box"><h4><span class="ic b-sky">📸</span>Evidence first</h4><p>Capture screenshots, traces, console &amp; network for every failure so a result is provable, not asserted.</p></div>
+      <div class="box"><h4><span class="ic b-mint">🔗</span>Full traceability</h4><p>Tie each finding back to a requirement and forward to a tracked ticket — quality you can audit end to end.</p></div>
     </div>
-    <p class="note">Every defect is traced requirement → test → pass/fail → ClickUp ticket with screenshots.</p>
     <div class="brandline">AI Agentic QA · Educational Workbook</div><div class="pnum">06</div>
   </div>
 
   <!-- CLOSE -->
   <div class="page">
     <span class="kicker">Takeaway</span>
-    <h2 class="title">Agentic QA is working today — not someday</h2>
-    <p class="lead">By pairing <b>Claude Opus 4.8</b> with a disciplined agent <b>harness</b>, flakiness is engineered out, long autonomous runs stay coherent, and the quality signal is accurate enough to put in front of a CTO.</p>
+    <h2 class="title">Agentic QA is practical today — not someday</h2>
+    <p class="lead">By pairing a <b>large-context AI model</b> with a disciplined agent <b>harness</b>, flakiness is engineered out, long autonomous runs stay coherent, and the quality signal becomes accurate enough to act on with confidence.</p>
     <div class="grid g3" style="margin-top:22px">
-      <div class="box"><h4><span class="ic b-mint">🔒</span>Reliable</h4><p>Zero-flake auth, no blind waits.</p></div>
-      <div class="box"><h4><span class="ic b-sky">⏳</span>Durable</h4><p>1M context + memory + self-healing.</p></div>
-      <div class="box"><h4><span class="ic b-lav">🎯</span>Accurate</h4><p>Traceable, evidence-backed results.</p></div>
+      <div class="box"><h4><span class="ic b-mint">🔒</span>Reliable</h4><p>Single-login sessions, no blind waits, zero-retry green.</p></div>
+      <div class="box"><h4><span class="ic b-sky">⏳</span>Durable</h4><p>Large context + context management + persistent memory.</p></div>
+      <div class="box"><h4><span class="ic b-lav">🎯</span>Accurate</h4><p>Layered fixes, evidence-first, full traceability.</p></div>
     </div>
-    <p class="link">▶ A reference pattern you can apply to any web app and any test suite.</p>
-    <div class="team">
-      <div class="tm"><span class="ic b-mint">🧪</span><div><div class="r">Test Engineer</div><div class="nm">Jayesh Pagar</div></div></div>
-      <div class="tm"><span class="ic b-lav">🧭</span><div><div class="r">Manager</div><div class="nm">Chaitanya Tipre</div></div></div>
-      <div class="tm"><span class="ic b-peach">📋</span><div><div class="r">Project Manager</div><div class="nm">Sudharshan Lokhande</div></div></div>
-    </div>
+    <p class="link">▶ A vendor-neutral reference pattern you can apply to any web app and any test suite.</p>
     <div class="brandline">AI Agentic QA · Educational Workbook</div><div class="pnum">07</div>
   </div>
 
