@@ -143,6 +143,7 @@ td.good{color:#3C9D6B;font-weight:600} td.bad{color:#C9486A;font-weight:600} td.
       <a href="#metrics">Metrics</a>
       <a href="#advantages">Advantages</a>
       <a href="#roadmap">Roadmap</a>
+      <a href="#future-scope">Future Scope</a>
       <a href="#conclusion">Conclusion</a>
     </div>
   </div>
@@ -551,9 +552,85 @@ flowchart TD
   </div>
 </section>
 
-<!-- 12. CONCLUSION -->
+<!-- 12. FUTURE SCOPE -->
+<section class="block" id="future-scope">
+  <div class="sec-head"><div class="sec-num">12</div><h2>Future Scope</h2></div>
+  <p class="sec-sub">The next evolution embeds continuous, automated security into the pipeline and hardens the AI runtime — extending the framework from functional QA toward a fully autonomous, security-aware Quality Engineering platform.</p>
+
+  <div class="grid g2">
+    <div class="card reveal"><h3><span class="ic b-pink">🛡️</span>1 · Automated OWASP Top 10 Security Regression</h3>
+      <p>Integrate <b>Burp Suite Professional</b> into the deployment pipeline. After every release the framework will:</p>
+      <ul>
+        <li>Auto-detect newly deployed features &amp; APIs</li>
+        <li>Run <b>OWASP Top 10</b> validation against the latest changes</li>
+        <li>Execute a full-system security regression suite</li>
+        <li>Confirm previously fixed vulnerabilities have not reappeared</li>
+        <li>Generate reports with severity, PoC, affected endpoints &amp; remediation</li>
+        <li>Publish security dashboards and alert stakeholders on critical findings</li>
+      </ul>
+    </div>
+    <div class="card reveal"><h3><span class="ic b-lav">🔐</span>2 · Continuous Security Integration (DevSecOps)</h3>
+      <p>Embed security as a continuous quality gate inside the development lifecycle:</p>
+      <ul>
+        <li>Automated scans after every deployment</li>
+        <li>Scheduled full-application assessments</li>
+        <li>API security &amp; authn/authz verification</li>
+        <li>Business-logic &amp; session-management testing</li>
+        <li>Input validation &amp; injection testing</li>
+        <li>Security trend analysis across releases</li>
+      </ul>
+    </div>
+    <div class="card reveal"><h3><span class="ic b-sky">⏱️</span>3 · Long-Running Agent Harness</h3>
+      <p>A dedicated harness keeps AI agents stable across multi-hour workflows without losing context:</p>
+      <ul>
+        <li>Continuous health &amp; heartbeat monitoring</li>
+        <li>Resource tracking &amp; execution-timeout management</li>
+        <li>Automatic retry, recovery &amp; failure isolation</li>
+        <li>Checkpoint-based state &amp; context persistence</li>
+        <li>Detailed execution logging &amp; diagnostics</li>
+      </ul>
+    </div>
+    <div class="card reveal"><h3><span class="ic b-mint">🧬</span>4 · Intelligent Agent Lifecycle Management</h3>
+      <p>Make the agent fleet elastic and self-managing:</p>
+      <ul>
+        <li>Dynamic agent spawning based on workload</li>
+        <li>Automatic load balancing &amp; parallel task execution</li>
+        <li>Self-healing orchestration &amp; task reassignment on failure</li>
+        <li>Adaptive resource allocation</li>
+        <li>Multi-agent collaboration with consensus-based decisions</li>
+      </ul>
+    </div>
+    <div class="card reveal"><h3><span class="ic b-peach">🕵️</span>5 · Autonomous Security Agent</h3>
+      <p>A dedicated agent continuously guards the application by:</p>
+      <ul>
+        <li>Detecting newly exposed endpoints</li>
+        <li>Running Burp Suite Pro validations &amp; OWASP Top 10 checks</li>
+        <li>Identifying authn/authz weaknesses &amp; validating API security</li>
+        <li>Performing regression security scans after every release</li>
+        <li>Diffing results vs. prior deployments to flag new vulnerabilities</li>
+      </ul>
+    </div>
+    <div class="card reveal"><h3><span class="ic b-yellow">🧠</span>6 · AI-Powered Quality Intelligence</h3>
+      <p>Deepen the framework's reasoning over quality signals:</p>
+      <ul>
+        <li>Autonomous test-case generation &amp; risk-based prioritization</li>
+        <li>Predictive failure analysis &amp; AI defect classification</li>
+        <li>Self-healing scripts &amp; automated root-cause analysis</li>
+        <li>Intelligent flaky-test detection</li>
+        <li>Continuous optimization of execution strategies</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout reveal" style="margin-top:20px">
+    <h3>🌟 Vision</h3>
+    <p style="color:var(--muted)">A <b>fully autonomous AI-powered Quality Engineering platform</b> where functional, regression, performance and <b>Burp Suite Professional–based OWASP Top 10 security testing</b> are seamlessly orchestrated after every deployment. Combined with the <b>Long-Running Agent Harness</b>, the platform delivers continuous validation, resilient execution and proactive security assurance — with minimal manual effort, higher release confidence, and consistently stronger software quality.</p>
+  </div>
+</section>
+
+<!-- 13. CONCLUSION -->
 <section class="block" id="conclusion">
-  <div class="sec-head"><div class="sec-num">12</div><h2>Conclusion</h2></div>
+  <div class="sec-head"><div class="sec-num">13</div><h2>Conclusion</h2></div>
   <div class="grid g2">
     <div class="card reveal"><h3><span class="ic b-lav">⚙️</span>Technical Impact</h3><p>A reusable, self-healing automation platform spanning 5 modules, 240 tests and 3 browser engines — built on disciplined patterns (POM, worker-scoped auth, role fixtures) that keep it stable and extensible.</p></div>
     <div class="card reveal"><h3><span class="ic b-mint">💰</span>Business Value &amp; ROI</h3><p>Manual regression effort is largely replaced by agents, shifting cost from recurring QA hours to far cheaper compute — while defects are filed faster, traced to acceptance criteria, and synced to ClickUp automatically.</p></div>
