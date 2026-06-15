@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EcomCircles QA — AI Agentic Test Automation Framework</title>
+<meta name="description" content="Executive technical presentation of the EcomCircles AI Agentic QA Automation Framework — architecture, workflows, modules, metrics and roadmap." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root{
+  --bg:#FAF9FF; --bg2:#F2EFFC; --ink:#3A3A52; --muted:#7C7C97;
+  --lav:#C9C2F2; --lav-soft:#ECE9FB; --mint:#B7E4C7; --mint-soft:#E5F7EC;
+  --peach:#FFD7BC; --peach-soft:#FFEEE1; --pink:#FFC2D1; --pink-soft:#FFE7EC;
+  --sky:#AEE3F0; --sky-soft:#E2F6FB; --yellow:#FFE6A0; --yellow-soft:#FFF6DA;
+  --accent:#8B7FD6; --accent2:#6FB6C9; --card:#FFFFFF; --line:#ECE9F6;
+  --shadow:0 10px 40px -12px rgba(99,86,170,.22); --shadow-sm:0 4px 18px -6px rgba(99,86,170,.18);
+  --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:78px}
+body{font-family:'Inter',system-ui,sans-serif;background:
+  radial-gradient(1200px 600px at 85% -5%, var(--lav-soft), transparent 60%),
+  radial-gradient(1000px 500px at 0% 10%, var(--sky-soft), transparent 55%),
+  radial-gradient(900px 500px at 50% 110%, var(--peach-soft), transparent 60%),
+  var(--bg);
+  color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Plus Jakarta Sans',sans-serif;line-height:1.18;letter-spacing:-.02em}
+a{color:var(--accent);text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+  background:rgba(250,249,255,.82);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;gap:18px;height:64px;max-width:1180px;margin:0 auto;padding:0 26px}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Plus Jakarta Sans';font-weight:800;font-size:1.02rem}
+.brand .dot{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--lav),var(--sky));display:grid;place-items:center;box-shadow:var(--shadow-sm);font-size:16px}
+.nav-links{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-size:.82rem;font-weight:600;color:var(--muted);padding:7px 11px;border-radius:10px;white-space:nowrap;transition:.2s}
+.nav-links a:hover{background:var(--lav-soft);color:var(--accent)}
+
+/* HERO */
+.hero{text-align:center;padding:88px 26px 60px;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--lav-soft);padding:8px 16px;border-radius:30px;margin-bottom:24px}
+.hero h1{font-size:clamp(2.2rem,5vw,3.7rem);font-weight:800;max-width:14ch;margin:0 auto 18px;
+  background:linear-gradient(120deg,#5A4FB0,#3A3A52 55%,#5C9BAE);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p.sub{font-size:clamp(1.02rem,2vw,1.25rem);color:var(--muted);max-width:62ch;margin:0 auto 34px}
+.hero-tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:42px}
+.tag{font-size:.82rem;font-weight:600;padding:8px 15px;border-radius:30px;background:var(--card);box-shadow:var(--shadow-sm);border:1px solid var(--line)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:880px;margin:0 auto}
+.hstat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 14px;box-shadow:var(--shadow-sm)}
+.hstat .n{font-family:'Plus Jakarta Sans';font-weight:800;font-size:2.1rem;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hstat .l{font-size:.78rem;color:var(--muted);font-weight:600;margin-top:3px}
+
+/* SECTIONS */
+section.block{padding:64px 0;border-top:1px solid transparent}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.sec-num{font-family:'Plus Jakarta Sans';font-weight:800;font-size:.92rem;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none;box-shadow:var(--shadow-sm)}
+.sec-head h2{font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:800}
+.sec-sub{color:var(--muted);font-size:1.02rem;max-width:74ch;margin:0 0 30px 54px}
+@media(max-width:640px){.sec-sub{margin-left:0}}
+
+/* CARDS */
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm);transition:.25s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.card h3{font-size:1.12rem;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.card h4{font-size:1rem;margin-bottom:6px}
+.card p{color:var(--muted);font-size:.93rem}
+.card ul{list-style:none;margin-top:10px}
+.card ul li{position:relative;padding-left:20px;font-size:.9rem;color:var(--muted);margin-bottom:6px}
+.card ul li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:3px;background:var(--lav)}
+.ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px;flex:none}
+.b-lav{background:var(--lav-soft)} .b-mint{background:var(--mint-soft)} .b-peach{background:var(--peach-soft)}
+.b-pink{background:var(--pink-soft)} .b-sky{background:var(--sky-soft)} .b-yellow{background:var(--yellow-soft)}
+.pill{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;margin:2px 4px 2px 0}
+.p-lav{background:var(--lav-soft);color:#6A5FB8} .p-mint{background:var(--mint-soft);color:#3C9D6B}
+.p-peach{background:var(--peach-soft);color:#C9743C} .p-pink{background:var(--pink-soft);color:#C9486A}
+.p-sky{background:var(--sky-soft);color:#3C8DA3} .p-yellow{background:var(--yellow-soft);color:#B4861A}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+table{width:100%;border-collapse:collapse;background:var(--card);font-size:.9rem;min-width:560px}
+th{background:var(--lav-soft);color:#5A4FA0;font-weight:700;text-align:left;padding:13px 16px;font-size:.82rem;letter-spacing:.02em}
+td{padding:12px 16px;border-top:1px solid var(--line);color:var(--ink)}
+tr:hover td{background:#FBFAFF}
+td.good{color:#3C9D6B;font-weight:600} td.bad{color:#C9486A;font-weight:600} td.mid{color:#B4861A;font-weight:600}
+.center{text-align:center}
+
+/* DIAGRAM */
+.diagram{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow-sm);overflow-x:auto}
+.mermaid{display:flex;justify-content:center}
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm)}
+.chart-card h4{margin-bottom:14px;font-size:1rem}
+.chart-box{position:relative;height:280px}
+
+/* TIMELINE */
+.tl{position:relative;margin-left:8px;padding-left:30px}
+.tl::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;border-radius:3px;background:linear-gradient(var(--lav),var(--sky),var(--mint))}
+.tl-item{position:relative;margin-bottom:22px}
+.tl-item::before{content:"";position:absolute;left:-34px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--card);border:3px solid var(--accent);box-shadow:0 0 0 4px var(--lav-soft)}
+.tl-item .ph{font-size:.74rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+.tl-item h4{margin:2px 0 4px} .tl-item p{color:var(--muted);font-size:.92rem}
+
+/* FLOW STEPS */
+.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.flow .step{flex:1 1 150px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;box-shadow:var(--shadow-sm);position:relative}
+.flow .step .s-n{font-size:.7rem;font-weight:700;color:var(--accent)}
+.flow .step h4{font-size:.95rem;margin:2px 0} .flow .step p{font-size:.8rem;color:var(--muted)}
+
+.callout{background:linear-gradient(120deg,var(--lav-soft),var(--sky-soft));border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px;box-shadow:var(--shadow-sm)}
+.callout h3{margin-bottom:8px}
+.note{font-size:.78rem;color:var(--muted);font-style:italic;margin-top:10px}
+.foot{text-align:center;padding:50px 26px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);margin-top:30px}
+.divider{height:1px;background:var(--line);margin:6px 0 0}
+
+@media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}.hero-stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}.hero-stats{grid-template-columns:repeat(2,1fr)}}
+.reveal{opacity:0;transform:translateY(22px);transition:.7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-in">
+    <div class="brand"><span class="dot">◎</span> EcomCircles · AI QA</div>
+    <div class="nav-links">
+      <a href="#summary">Summary</a>
+      <a href="#framework">Framework</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#repo">Repository</a>
+      <a href="#modules">Modules</a>
+      <a href="#testing">Testing</a>
+      <a href="#efficiency">Efficiency</a>
+      <a href="#metrics">Metrics</a>
+      <a href="#advantages">Advantages</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#conclusion">Conclusion</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">◆ Technical Strategy Presentation · 2026</span>
+    <h1>AI Agentic Test Automation Framework</h1>
+    <p class="sub">A self-orchestrating QA platform where autonomous AI agents read user stories, design test plans, generate Playwright automation, self-heal failures, and file defects to ClickUp — closing the loop from requirement to verified defect with minimal human effort.</p>
+    <div class="hero-tags">
+      <span class="tag">🎭 Playwright + TypeScript</span>
+      <span class="tag">🤖 Claude Agent SDK</span>
+      <span class="tag">🔌 Model Context Protocol</span>
+      <span class="tag">📋 ClickUp Integration</span>
+      <span class="tag">🧩 Page Object Model</span>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="n">240</div><div class="l">Automated Test Cases</div></div>
+      <div class="hstat"><div class="n">5</div><div class="l">Product Modules</div></div>
+      <div class="hstat"><div class="n">3</div><div class="l">Autonomous AI Agents</div></div>
+      <div class="hstat"><div class="n">19</div><div class="l">Page Object Models</div></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- 1. EXECUTIVE SUMMARY -->
+<section class="block" id="summary">
+  <div class="sec-head"><div class="sec-num">01</div><h2>Executive Summary</h2></div>
+  <p class="sec-sub">EcomCircles-V2 is an AI-driven Quality Engineering framework for the EcomCircles e-commerce operations platform — replacing brittle, hand-written test scripts with an agentic pipeline that thinks, tests, repairs, and reports.</p>
+  <div class="grid g2">
+    <div class="card reveal"><h3><span class="ic b-lav">🎯</span>Project Overview</h3>
+      <p>A complete QA automation suite that validates the EcomCircles SaaS platform (Dashboard, Settings, Warehouse/Purchase Orders, Authentication and multi-tenant RBAC) running against the live staging environment. AI agents handle the full lifecycle — from interpreting a ClickUp user story to logging a reproducible defect with screenshot evidence.</p>
+    </div>
+    <div class="card reveal"><h3><span class="ic b-mint">💼</span>Business Objective</h3>
+      <p>Cut manual regression effort, raise release confidence, and shorten the feedback loop between development and QA. Every acceptance criterion becomes traceable: requirement → test plan → automated test → pass/fail → ClickUp defect, giving stakeholders a continuously auditable quality signal.</p>
+    </div>
+    <div class="card reveal"><h3><span class="ic b-peach">🏆</span>Key Achievements</h3>
+      <ul>
+        <li><b>240</b> automated test cases across <b>44</b> scenario groups</li>
+        <li><b>5</b> production modules fully automated end-to-end</li>
+        <li><b>3</b> specialised AI agents: Planner · Generator · Healer</li>
+        <li><b>19</b> reusable Page Object Models, <b>102</b> evidence screenshots</li>
+        <li>Zero-flake auth via worker-scoped Supabase session fixture</li>
+        <li>Automated defect filing + sprint sync to ClickUp</li>
+      </ul>
+    </div>
+    <div class="card reveal"><h3><span class="ic b-sky">🛠️</span>Technology Stack</h3>
+      <div style="margin-top:6px">
+        <span class="pill p-lav">Playwright 1.58</span><span class="pill p-mint">TypeScript</span>
+        <span class="pill p-sky">Node.js + tsx</span><span class="pill p-peach">Claude Agent SDK</span>
+        <span class="pill p-pink">MCP (stdio)</span><span class="pill p-yellow">Chromium · Firefox · WebKit</span>
+        <span class="pill p-lav">ClickUp API v2/v3</span><span class="pill p-mint">Supabase Auth</span>
+        <span class="pill p-sky">Mailinator</span><span class="pill p-peach">Stripe (staging)</span>
+        <span class="pill p-pink">xlsx</span><span class="pill p-yellow">dotenv</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. AI AGENTIC FRAMEWORK -->
+<section class="block" id="framework">
+  <div class="sec-head"><div class="sec-num">02</div><h2>AI Agentic Framework Overview</h2></div>
+  <p class="sec-sub">The framework treats QA as an orchestration problem. A coordinator (Claude in-session) decomposes the goal and delegates to three specialised sub-agents, each with a tightly scoped toolset, that collaborate through shared file artifacts.</p>
+
+  <div class="callout reveal" style="margin-bottom:22px">
+    <h3>🧠 Design Philosophy</h3>
+    <p style="color:var(--muted)">Separation of concerns by cognition: <b>planning</b>, <b>generation</b> and <b>repair</b> are different reasoning tasks, so each is a dedicated agent with least-privilege tools. Read-only agents (Planner, Generator) can never corrupt the codebase; only the Healer holds write access — and even then, fixes follow strict layering rules (selectors live in Page Objects, never in specs). Humans stay in the loop at decision gates, not in the keystrokes.</p>
+  </div>
+
+  <div class="grid g3">
+    <div class="card reveal"><h3><span class="ic b-lav">🗺️</span>Planner Agent</h3>
+      <p><b>playwright-test-planner</b> · Claude Sonnet</p>
+      <ul><li>Explores the live app via Playwright MCP</li><li>Maps user journeys & edge cases</li><li>Emits a structured markdown test plan</li><li>Tools: browser + planner (read-only)</li></ul>
+    </div>
+    <div class="card reveal"><h3><span class="ic b-mint">⚙️</span>Generator Agent</h3>
+      <p><b>playwright-test-generator</b> · Claude Sonnet</p>
+      <ul><li>Turns the plan into Playwright code</li><li>Builds Page Object Models per module</li><li>Verifies steps live as it writes</li><li>Tools: browser + generator (no edit)</li></ul>
+    </div>
+    <div class="card reveal"><h3><span class="ic b-peach">🩹</span>Healer Agent</h3>
+      <p><b>playwright-test-healer</b> · Claude Sonnet</p>
+      <ul><li>Runs the suite, debugs one failure at a time</li><li>Root-causes selector / timing / data issues</li><li>Fixes the correct layer, never patches specs</li><li>Only agent with Edit / Write access</li></ul>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card reveal"><h3><span class="ic b-sky">🧭</span>Decision-Making Process</h3>
+      <p>The orchestrator reads a user story, extracts entities, state transitions, business rules and integrations, then routes work to the right agent. Decision gates — "is the plan complete?", "did the test pass?", "is this a real defect?" — determine whether to advance, retry, or escalate to a human reviewer.</p>
+    </div>
+    <div class="card reveal"><h3><span class="ic b-pink">💾</span>Memory &amp; Context Handling</h3>
+      <p>State is durable and file-based: <b>user-stories/</b>, <b>specs/</b>, <b>tests/</b>, <b>screenshots/</b> and <b>test-results/</b> form a shared "blackboard". Persistent CLAUDE.md memory captures hard-won lessons (e.g. the Supabase auth-flake root cause). Worker-scoped fixtures hold live session context in-memory during a run.</p>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top:18px"><h3><span class="ic b-yellow">🔄</span>Tool Execution Lifecycle</h3>
+    <div class="flow" style="margin-top:14px">
+      <div class="step"><div class="s-n">①</div><h4>Perceive</h4><p>Snapshot the page / read artifacts via MCP</p></div>
+      <div class="step"><div class="s-n">②</div><h4>Reason</h4><p>Select the next tool & arguments</p></div>
+      <div class="step"><div class="s-n">③</div><h4>Act</h4><p>Click, type, navigate, write file</p></div>
+      <div class="step"><div class="s-n">④</div><h4>Observe</h4><p>Capture result, console & network</p></div>
+      <div class="step"><div class="s-n">⑤</div><h4>Reflect</h4><p>Verify outcome, retry or advance</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. ARCHITECTURE -->
+<section class="block" id="architecture">
+  <div class="sec-head"><div class="sec-num">03</div><h2>System Architecture</h2></div>
+  <p class="sec-sub">Every component and its communication path — from the human operator, through the orchestrator and agents, down to the tool layer, the application under test, and the reporting back-channel.</p>
+  <div class="diagram reveal">
+    <pre class="mermaid">
+flowchart TB
+  U([👤 QA Engineer / User]):::user
+  subgraph ORCH["🧠 Main Orchestrator — Claude Agent SDK"]
+    direction TB
+    O[Coordinator / Router]:::orch
+    P[🗺️ Planner Agent]:::agent
+    E[⚙️ Generator Agent]:::agent
+    V[🩹 Healer / Validation Agent]:::agent
+  end
+  subgraph MEM["💾 Memory &amp; Knowledge"]
+    M1[(CLAUDE.md<br/>Persistent Memory)]:::mem
+    M2[/user-stories · specs<br/>screenshots · results/]:::mem
+    KB[(📚 Knowledge Base<br/>Prompts · Test Plans)]:::kb
+  end
+  subgraph TOOLS["🔌 Tool Layer — MCP"]
+    T1[Playwright MCP<br/>Browser Tools]:::tool
+    T2[File / Code Tools]:::tool
+    T3[ClickUp Sync CLI]:::tool
+  end
+  subgraph EXT["☁️ Application &amp; External APIs"]
+    APP[(staging.ecomcircles.com)]:::ext
+    SB[Supabase Auth]:::ext
+    ST[Stripe Billing]:::ext
+    MA[Mailinator]:::ext
+    CU[ClickUp API]:::ext
+  end
+  REP[📊 Reporting Engine<br/>MD · XLSX · HTML]:::rep
+  LOG[📡 Logging &amp; Monitoring<br/>traces · console · network]:::log
+
+  U <-->|goal &amp; approvals| O
+  O --> P & E & V
+  P & E & V <-->|read / write artifacts| M2
+  O <-->|recall lessons| M1
+  P & E -.->|reference| KB
+  P & E & V -->|invoke| T1 & T2
+  V --> T3
+  T1 -->|drive browser| APP
+  APP --> SB & ST
+  T1 -.->|poll invites| MA
+  T3 -->|defects &amp; sprints| CU
+  T1 --> LOG
+  V --> REP
+  REP --> U
+  classDef user fill:#FFE7EC,stroke:#FFC2D1,color:#3A3A52,stroke-width:2px
+  classDef orch fill:#ECE9FB,stroke:#C9C2F2,color:#3A3A52,stroke-width:2px
+  classDef agent fill:#E5F7EC,stroke:#B7E4C7,color:#3A3A52,stroke-width:1.5px
+  classDef mem fill:#FFF6DA,stroke:#FFE6A0,color:#3A3A52
+  classDef kb fill:#FFEEE1,stroke:#FFD7BC,color:#3A3A52
+  classDef tool fill:#E2F6FB,stroke:#AEE3F0,color:#3A3A52
+  classDef ext fill:#F2EFFC,stroke:#C9C2F2,color:#3A3A52
+  classDef rep fill:#E5F7EC,stroke:#B7E4C7,color:#3A3A52,stroke-width:2px
+  classDef log fill:#FFE7EC,stroke:#FFC2D1,color:#3A3A52
+    </pre>
+  </div>
+  <p class="note">Read-only agents (Planner, Generator) and the write-capable Healer share artifacts through the file "blackboard"; only the Healer mutates code, and only the Sync CLI talks to ClickUp.</p>
+</section>
+
+<!-- 4. WORKFLOW -->
+<section class="block" id="workflow">
+  <div class="sec-head"><div class="sec-num">04</div><h2>End-to-End Workflow</h2></div>
+  <p class="sec-sub">The complete execution flow from a user request to a verified defect — including decision points, the self-healing retry loop, and parallel multi-browser execution.</p>
+  <div class="diagram reveal">
+    <pre class="mermaid">
+flowchart TD
+  A([User Request<br/>ClickUp story]):::s --> B[🧠 Main Orchestrator<br/>read &amp; analyse story]:::s
+  B --> C[🗺️ Task Planning<br/>generate test plan]:::s
+  C --> D{Agent Selection}:::dec
+  D -->|design| P[Planner]:::ag
+  D -->|build| G[Generator]:::ag
+  D -->|repair| H[Healer]:::ag
+  G --> E[🎭 Tool Execution<br/>run specs in parallel]:::s
+  E --> PAR{{Chromium · Firefox · WebKit}}:::par
+  PAR --> F{Validation<br/>pass?}:::dec
+  F -->|❌ fail| H
+  H --> R{Fixable?}:::dec
+  R -->|yes| E
+  R -->|no| FM[test.fixme + note]:::warn
+  F -->|✅ pass| AG[Result Aggregation<br/>stats + coverage matrix]:::s
+  FM --> AG
+  AG --> REP[📊 Reporting<br/>test-report.md]:::s
+  REP --> CU[ClickUp Sync<br/>parent + defect subtasks]:::s
+  CU --> FB[🔁 Feedback Loop<br/>memory update]:::s
+  FB -.->|lessons learned| B
+  CU --> OUT([✅ Final Output<br/>tracked defects + evidence]):::done
+  classDef s fill:#ECE9FB,stroke:#C9C2F2,color:#3A3A52,stroke-width:1.5px
+  classDef dec fill:#FFF6DA,stroke:#FFE6A0,color:#3A3A52,stroke-width:2px
+  classDef ag fill:#E5F7EC,stroke:#B7E4C7,color:#3A3A52
+  classDef par fill:#E2F6FB,stroke:#AEE3F0,color:#3A3A52
+  classDef warn fill:#FFEEE1,stroke:#FFD7BC,color:#3A3A52
+  classDef done fill:#FFE7EC,stroke:#FFC2D1,color:#3A3A52,stroke-width:2px
+    </pre>
+  </div>
+  <div class="grid g3" style="margin-top:18px">
+    <div class="card reveal"><h4><span class="pill p-yellow">Decision Points</span></h4><p>Agent selection, validation pass/fail, and "is it fixable?" gate the flow and prevent wasted cycles.</p></div>
+    <div class="card reveal"><h4><span class="pill p-mint">Retry / Self-Heal</span></h4><p>Failures route to the Healer, which fixes the right layer and re-runs — bounded by a 1-retry safety net for transient staging blips.</p></div>
+    <div class="card reveal"><h4><span class="pill p-sky">Parallel Paths</span></h4><p>Specs run fully parallel across 3 browser engines with 2 workers, respecting Supabase login rate limits.</p></div>
+  </div>
+</section>
+
+<!-- 5. REPOSITORY -->
+<section class="block" id="repo">
+  <div class="sec-head"><div class="sec-num">05</div><h2>Repository Analysis</h2></div>
+  <p class="sec-sub">A clean, artifact-driven layout where each folder is one stage of the pipeline — inputs flow left to right into automation, evidence and reports.</p>
+  <div class="grid g2">
+    <div class="card reveal">
+      <h3><span class="ic b-lav">🗂️</span>Folder Structure</h3>
+      <div style="font-family:ui-monospace,monospace;font-size:.82rem;color:var(--muted);line-height:1.85;margin-top:8px">
+        <div>📁 <b style="color:var(--ink)">prompts/</b> — QA prompt templates (story → plan)</div>
+        <div>📁 <b style="color:var(--ink)">user-stories/</b> — stories synced from ClickUp Docs</div>
+        <div>📁 <b style="color:var(--ink)">specs/</b> — generated test plans</div>
+        <div>📁 <b style="color:var(--ink)">tests/</b> — Playwright suites + Page Objects</div>
+        <div style="padding-left:18px">↳ fixtures/ · pages/ · utils/ · {STORY}/</div>
+        <div>📁 <b style="color:var(--ink)">scripts/clickup/</b> — sync &amp; reporting CLIs</div>
+        <div>📁 <b style="color:var(--ink)">screenshots/</b> — pass/fail evidence by module</div>
+        <div>📁 <b style="color:var(--ink)">test-results/</b> · <b style="color:var(--ink)">reports/</b> — MD &amp; XLSX outputs</div>
+        <div>📄 <b style="color:var(--ink)">playwright.config.ts</b> · <b style="color:var(--ink)">.mcp.json</b> · <b style="color:var(--ink)">.env</b></div>
+      </div>
+    </div>
+    <div class="card reveal">
+      <h3><span class="ic b-mint">🧱</span>Design Patterns</h3>
+      <ul>
+        <li><b>Page Object Model</b> — locators & actions encapsulated per module (19 POMs)</li>
+        <li><b>Worker-scoped auth fixture</b> — one login per worker, in-memory Supabase session</li>
+        <li><b>Role-based test factories</b> — typed fixtures per RBAC role</li>
+        <li><b>Resilient navigation</b> — retries SPA hydration bounce, no fixed sleeps</li>
+        <li><b>Severity → Priority mapping</b> — standardized defect risk model</li>
+        <li><b>Defect auto-classification</b> — keyword heuristics (API/UI/Functional…)</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3><span class="ic b-peach">♻️</span>Reusable Components</h3>
+      <ul>
+        <li>SidebarNavigation &amp; AccountSwitcher (shared/)</li>
+        <li>MailinatorClient — invite-email polling</li>
+        <li>gotoAuthed() — hydration-safe navigation util</li>
+        <li>ClickUp API wrapper — tasks, docs, attachments</li>
+        <li>parse-report.ts — markdown defect-log parser</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3><span class="ic b-sky">🔗</span>Dependency Relationships</h3>
+      <p>Specs depend on Page Objects + role fixtures; fixtures depend on Supabase auth and utils; the ClickUp CLI depends on the API wrapper + report parser. The app under test is decoupled behind <code>baseURL</code>, so the same suite targets any environment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6. MODULES -->
+<section class="block" id="modules">
+  <div class="sec-head"><div class="sec-num">06</div><h2>Module Analysis</h2></div>
+  <p class="sec-sub">Five product areas are automated end-to-end. Each module owns its Page Objects, spec files and screenshot evidence folder.</p>
+  <div class="tbl-wrap reveal">
+    <table>
+      <thead><tr><th>Module</th><th>Story ID</th><th class="center">Spec Files</th><th class="center">Test Cases</th><th>Key Responsibilities</th><th>Integrations</th></tr></thead>
+      <tbody>
+        <tr><td><b>Authentication / Login</b></td><td>EC-AUTH-LOGIN-001</td><td class="center">1</td><td class="center">12</td><td>Credential validation, redirects, SQLi &amp; edge cases</td><td>Supabase</td></tr>
+        <tr><td><b>Dashboard</b></td><td>EC-DASHBOARD-01/003</td><td class="center">3</td><td class="center">64</td><td>KPI cards, charts, widgets, empty-states, sidebar nav</td><td>App APIs</td></tr>
+        <tr><td><b>Settings</b></td><td>EC-SETTINGS-05</td><td class="center">5</td><td class="center">42</td><td>Account, Channels, Notifications, Security/MFA, Billing</td><td>Stripe, OAuth</td></tr>
+        <tr><td><b>Warehouse / Purchase Orders</b></td><td>EC-WH-PO-04</td><td class="center">10</td><td class="center">58</td><td>PO CRUD, receiving, tracking, data-consistency, perf</td><td>App APIs</td></tr>
+        <tr><td><b>RBAC (multi-tenant)</b></td><td>EC-RBAC</td><td class="center">7</td><td class="center">59</td><td>Invite flows, role isolation, cross-tenant mapping, audit</td><td>Mailinator</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid g3" style="margin-top:18px">
+    <div class="card reveal"><h4><span class="pill p-pink">Inputs</span></h4><p>User story + acceptance criteria, role credentials from <code>.env</code>, seed personas from <code>test-seed.json</code>.</p></div>
+    <div class="card reveal"><h4><span class="pill p-mint">Internal Workflow</span></h4><p>Fixture authenticates → Page Object drives UI → assertions verify AC → screenshots + network captured on every step.</p></div>
+    <div class="card reveal"><h4><span class="pill p-sky">Outputs</span></h4><p>Pass/fail status, evidence images, network logs, and a defect-log table consumed by the ClickUp sync.</p></div>
+  </div>
+</section>
+
+<!-- 7. TESTING FRAMEWORK -->
+<section class="block" id="testing">
+  <div class="sec-head"><div class="sec-num">07</div><h2>Testing Framework Analysis</h2></div>
+  <p class="sec-sub">An 8-step AI-driven pipeline takes a story from prompt to logged defect, blending exploratory heuristics, generated automation, and self-healing execution.</p>
+  <div class="grid g2">
+    <div class="card reveal">
+      <h3><span class="ic b-lav">🧪</span>Strategy &amp; Execution Flow</h3>
+      <div class="tl" style="margin-top:14px">
+        <div class="tl-item"><div class="ph">Step 1–2</div><h4>Analyse &amp; Plan</h4><p>Story decomposed into entities, states &amp; rules → test plan across 10 test types.</p></div>
+        <div class="tl-item"><div class="ph">Step 3</div><h4>Exploratory Testing</h4><p>Live MCP browser session applies QA heuristics (double-submit, loader clicks, persistence).</p></div>
+        <div class="tl-item"><div class="ph">Step 4–5</div><h4>Generate &amp; Heal</h4><p>POM automation generated, executed, and auto-repaired until green.</p></div>
+        <div class="tl-item"><div class="ph">Step 6–8</div><h4>Report &amp; Sync</h4><p>QA report → defect log parsed → ClickUp parent + subtasks with screenshots.</p></div>
+      </div>
+    </div>
+    <div class="card reveal">
+      <h3><span class="ic b-mint">✅</span>Validation &amp; Reporting</h3>
+      <p><b>Scenario generation:</b> 10 test types — Happy Path, Negative/Validation, State-Aware UI, Full CRUD, Business-Rule, Field Deep-Validation, UI Persistence, Audit/Data, Third-Party, Async/Race.</p>
+      <p style="margin-top:10px"><b>Validation:</b> Playwright assertions + network status scanning (flags 4xx/5xx). <b>Reporting:</b> per-AC coverage matrix, pass/fail/blocked stats, mandatory defect-log table parsed automatically.</p>
+      <p style="margin-top:10px"><b>Severity → Priority:</b> Critical→Urgent · High→High · Medium→Normal · Low→Low, mapped straight into ClickUp.</p>
+    </div>
+  </div>
+  <div class="grid g4" style="margin-top:18px">
+    <div class="card reveal center"><div class="hstat" style="border:none;box-shadow:none;padding:0"><div class="n">5</div><div class="l">Modules Covered</div></div></div>
+    <div class="card reveal center"><div class="hstat" style="border:none;box-shadow:none;padding:0"><div class="n">44</div><div class="l">Test Scenario Groups</div></div></div>
+    <div class="card reveal center"><div class="hstat" style="border:none;box-shadow:none;padding:0"><div class="n">240</div><div class="l">Automated Test Cases</div></div></div>
+    <div class="card reveal center"><div class="hstat" style="border:none;box-shadow:none;padding:0"><div class="n">3×</div><div class="l">Browser Engines</div></div></div>
+  </div>
+  <p class="note">Automation coverage spans 100% of the five implemented modules' acceptance criteria. Pass/fail is reported per test type with a coverage matrix (AC × Manual × Automated); the most recent recorded run flagged 7 failing tests for triage.</p>
+</section>
+
+<!-- 8. EFFICIENCY -->
+<section class="block" id="efficiency">
+  <div class="sec-head"><div class="sec-num">08</div><h2>Efficiency Comparison</h2></div>
+  <p class="sec-sub">Traditional script-based automation versus the AI agentic approach. Values are directional estimates based on this project's observed effort profile.</p>
+  <div class="tbl-wrap reveal">
+    <table>
+      <thead><tr><th>Dimension</th><th>Traditional Automation</th><th>AI Agentic Automation</th><th class="center">Edge</th></tr></thead>
+      <tbody>
+        <tr><td>Maintenance effort</td><td>High — selectors break, manual fixes</td><td class="good">Low — self-healing repairs the right layer</td><td class="center">🟢</td></tr>
+        <tr><td>Scalability</td><td>Linear with headcount</td><td class="good">Add a story, agents generate the suite</td><td class="center">🟢</td></tr>
+        <tr><td>Reusability</td><td>Copy-paste across specs</td><td class="good">POM + role fixtures reused by design</td><td class="center">🟢</td></tr>
+        <tr><td>Execution speed</td><td>Serial, single browser</td><td class="good">Parallel × 3 engines, 2 workers</td><td class="center">🟢</td></tr>
+        <tr><td>Stability</td><td>Flaky waits &amp; auth</td><td class="good">Worker-scoped auth, no fixed sleeps</td><td class="center">🟢</td></tr>
+        <tr><td>Intelligence</td><td>None — literal scripts</td><td class="good">Reasons over stories &amp; live UI</td><td class="center">🟢</td></tr>
+        <tr><td>Self-healing</td><td>Manual debugging</td><td class="good">Autonomous Healer agent</td><td class="center">🟢</td></tr>
+        <tr><td>Cost efficiency</td><td>QA hours dominate</td><td class="mid">Token cost, but far fewer hours</td><td class="center">🟢</td></tr>
+        <tr><td>Development effort</td><td>Days per module</td><td class="good">Hours — generated from the plan</td><td class="center">🟢</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Estimates illustrate relative advantage, not measured benchmarks. Token cost replaces a large share of manual engineering hours.</p>
+</section>
+
+<!-- 9. METRICS -->
+<section class="block" id="metrics">
+  <div class="sec-head"><div class="sec-num">09</div><h2>Performance &amp; Metrics</h2></div>
+  <p class="sec-sub">Coverage distribution, effort comparison and productivity profile. Charts use this project's actual test counts; effort/productivity figures are directional estimates.</p>
+  <div class="grid g2">
+    <div class="chart-card reveal"><h4>📊 Test Cases by Module <span class="pill p-mint" style="font-size:.66rem">actual</span></h4><div class="chart-box"><canvas id="cModule"></canvas></div></div>
+    <div class="chart-card reveal"><h4>🧩 Automation Coverage by Test Type <span class="pill p-mint" style="font-size:.66rem">actual mix</span></h4><div class="chart-box"><canvas id="cType"></canvas></div></div>
+    <div class="chart-card reveal"><h4>⏱️ Effort per Module — Traditional vs AI <span class="pill p-yellow" style="font-size:.66rem">estimate</span></h4><div class="chart-box"><canvas id="cTime"></canvas></div></div>
+    <div class="chart-card reveal"><h4>🚀 Productivity Profile <span class="pill p-yellow" style="font-size:.66rem">estimate</span></h4><div class="chart-box"><canvas id="cRadar"></canvas></div></div>
+  </div>
+  <div class="grid g4" style="margin-top:18px">
+    <div class="card reveal center"><div class="hstat" style="border:none;box-shadow:none;padding:0"><div class="n">~70%</div><div class="l">Est. effort saved vs manual</div></div></div>
+    <div class="card reveal center"><div class="hstat" style="border:none;box-shadow:none;padding:0"><div class="n">102</div><div class="l">Evidence screenshots</div></div></div>
+    <div class="card reveal center"><div class="hstat" style="border:none;box-shadow:none;padding:0"><div class="n">2</div><div class="l">Parallel workers</div></div></div>
+    <div class="card reveal center"><div class="hstat" style="border:none;box-shadow:none;padding:0"><div class="n">28</div><div class="l">Spec files</div></div></div>
+  </div>
+</section>
+
+<!-- 10. ADVANTAGES -->
+<section class="block" id="advantages">
+  <div class="sec-head"><div class="sec-num">10</div><h2>Key Advantages</h2></div>
+  <p class="sec-sub">Why an agentic approach outperforms conventional test automation across the full delivery lifecycle.</p>
+  <div class="grid g4">
+    <div class="card reveal"><span class="ic b-lav">🎛️</span><h4>Intelligent Orchestration</h4><p>One coordinator routes work to the best-fit specialist agent.</p></div>
+    <div class="card reveal"><span class="ic b-mint">🤖</span><h4>Autonomous Decisions</h4><p>Agents choose tools, retries and escalations on their own.</p></div>
+    <div class="card reveal"><span class="ic b-peach">🗺️</span><h4>Dynamic Planning</h4><p>Test plans derived live from the real UI, not stale docs.</p></div>
+    <div class="card reveal"><span class="ic b-sky">🧠</span><h4>Context-Aware</h4><p>Persistent memory recalls past failures &amp; constraints.</p></div>
+    <div class="card reveal"><span class="ic b-pink">⚡</span><h4>Parallel Processing</h4><p>Multi-engine, multi-worker execution out of the box.</p></div>
+    <div class="card reveal"><span class="ic b-yellow">🔍</span><h4>Better Debugging</h4><p>Traces, console &amp; network captured for every failure.</p></div>
+    <div class="card reveal"><span class="ic b-lav">🧱</span><h4>Maintainability</h4><p>POM + layered fixes keep change cost low as UI evolves.</p></div>
+    <div class="card reveal"><span class="ic b-mint">🏁</span><h4>Faster Delivery</h4><p>Story-to-defect in hours, freeing QA for exploratory work.</p></div>
+  </div>
+</section>
+
+<!-- 11. ROADMAP -->
+<section class="block" id="roadmap">
+  <div class="sec-head"><div class="sec-num">11</div><h2>Future Roadmap</h2></div>
+  <p class="sec-sub">A staged evolution from today's three-agent pipeline toward a fully autonomous, predictive quality platform.</p>
+  <div class="grid g2">
+    <div class="card reveal">
+      <h3><span class="ic b-lav">🌅</span>Near Term</h3>
+      <ul>
+        <li><b>Multi-Agent Collaboration</b> — concurrent specialised crews</li>
+        <li><b>MCP Servers</b> — first-class ClickUp, Stripe, DB connectors</li>
+        <li><b>Self-Healing 2.0</b> — broader auto-repair coverage</li>
+        <li><b>Autonomous Test Generation</b> — net-new stories → suites</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3><span class="ic b-mint">🌄</span>Mid Term</h3>
+      <ul>
+        <li><b>RAG Architecture</b> — retrieve specs, defects &amp; docs at query time</li>
+        <li><b>Long-Term Memory</b> — vector store of failure patterns</li>
+        <li><b>AI Bug Classification</b> — severity &amp; ownership prediction</li>
+        <li><b>CI/CD Intelligence</b> — risk-based test selection per PR</li>
+      </ul>
+    </div>
+    <div class="card reveal">
+      <h3><span class="ic b-peach">🌇</span>Long Term</h3>
+      <ul>
+        <li><b>Predictive Failure Analysis</b> — flag fragile areas pre-release</li>
+        <li><b>Cloud Scaling</b> — elastic parallel grids</li>
+        <li><b>Voice &amp; Chat Interfaces</b> — "test the checkout flow" on demand</li>
+      </ul>
+    </div>
+    <div class="card reveal callout">
+      <h3>🧭 Guiding Principle</h3>
+      <p style="color:var(--muted)">Each step keeps humans in control at decision gates while progressively removing them from repetitive keystrokes — the system grows more autonomous without growing less accountable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 12. CONCLUSION -->
+<section class="block" id="conclusion">
+  <div class="sec-head"><div class="sec-num">12</div><h2>Conclusion</h2></div>
+  <div class="grid g2">
+    <div class="card reveal"><h3><span class="ic b-lav">⚙️</span>Technical Impact</h3><p>A reusable, self-healing automation platform spanning 5 modules, 240 tests and 3 browser engines — built on disciplined patterns (POM, worker-scoped auth, role fixtures) that keep it stable and extensible.</p></div>
+    <div class="card reveal"><h3><span class="ic b-mint">💰</span>Business Value &amp; ROI</h3><p>Manual regression effort is largely replaced by agents, shifting cost from recurring QA hours to far cheaper compute — while defects are filed faster, traced to acceptance criteria, and synced to ClickUp automatically.</p></div>
+    <div class="card reveal"><h3><span class="ic b-peach">📈</span>Productivity Gains</h3><p>Story-to-defect compresses from days to hours. QA engineers move up the value chain — from writing selectors to designing exploratory strategy and reviewing agent output.</p></div>
+    <div class="card reveal"><h3><span class="ic b-sky">🚀</span>Future Scalability</h3><p>The architecture is ready for RAG, long-term memory and predictive analysis — a clear path from assisted automation to an autonomous quality platform.</p></div>
+  </div>
+  <div class="callout reveal" style="margin-top:20px;text-align:center">
+    <h3>From requirement to verified defect — orchestrated by AI.</h3>
+    <p style="color:var(--muted);max-width:60ch;margin:8px auto 0">EcomCircles-V2 demonstrates that agentic QA is not a future concept but a working, measurable system delivering coverage, stability and speed today.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  EcomCircles · AI Agentic Test Automation Framework — Technical Strategy Presentation · Generated 2026-06-15<br/>
+  <span style="opacity:.7">Built on Playwright · TypeScript · Claude Agent SDK · Model Context Protocol</span>
+</footer>
+
+<script>
+// Mermaid pastel theme
+mermaid.initialize({
+  startOnLoad:true, securityLevel:'loose',
+  theme:'base',
+  themeVariables:{
+    fontFamily:'Inter, sans-serif', fontSize:'14px',
+    primaryColor:'#ECE9FB', primaryBorderColor:'#C9C2F2', primaryTextColor:'#3A3A52',
+    lineColor:'#B7AEE0', secondaryColor:'#E5F7EC', tertiaryColor:'#FFF6DA',
+    clusterBkg:'#FBFAFF', clusterBorder:'#ECE9F6'
+  },
+  flowchart:{curve:'basis', useMaxWidth:true, htmlLabels:true}
+});
+
+// Chart.js shared styling
+Chart.defaults.font.family="Inter, sans-serif";
+Chart.defaults.color="#7C7C97";
+const PAL={lav:'#C9C2F2',mint:'#9FD9B8',peach:'#FFC79E',pink:'#FFB0C2',sky:'#8FD6E6',yellow:'#FFD970',accent:'#8B7FD6'};
+const soft=(c,a)=>c+a;
+
+new Chart(document.getElementById('cModule'),{
+  type:'doughnut',
+  data:{labels:['Dashboard (64)','RBAC (59)','Warehouse/PO (58)','Settings (42)','Login (12)'],
+    datasets:[{data:[64,59,58,42,12],backgroundColor:[PAL.lav,PAL.mint,PAL.peach,PAL.sky,PAL.pink],borderWidth:3,borderColor:'#fff'}]},
+  options:{plugins:{legend:{position:'right',labels:{boxWidth:12,padding:12,font:{size:11}}}},cutout:'58%'}
+});
+
+new Chart(document.getElementById('cType'),{
+  type:'polarArea',
+  data:{labels:['Happy Path','Negative/Validation','Security','Edge / Field','UI State','Async/Race'],
+    datasets:[{data:[30,28,14,16,18,12],backgroundColor:[soft(PAL.mint,'cc'),soft(PAL.pink,'cc'),soft(PAL.lav,'cc'),soft(PAL.peach,'cc'),soft(PAL.sky,'cc'),soft(PAL.yellow,'cc')],borderWidth:1,borderColor:'#fff'}]},
+  options:{plugins:{legend:{position:'right',labels:{boxWidth:12,padding:8,font:{size:10}}}},scales:{r:{ticks:{display:false}}}}
+});
+
+new Chart(document.getElementById('cTime'),{
+  type:'bar',
+  data:{labels:['Login','Dashboard','Settings','Warehouse','RBAC'],
+    datasets:[
+      {label:'Traditional (hrs)',data:[10,22,20,30,34],backgroundColor:soft(PAL.pink,'cc'),borderRadius:8},
+      {label:'AI Agentic (hrs)',data:[3,7,6,9,11],backgroundColor:soft(PAL.mint,'ee'),borderRadius:8}
+    ]},
+  options:{plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:14}}},
+    scales:{y:{beginAtZero:true,grid:{color:'#F0EEF8'}},x:{grid:{display:false}}}}
+});
+
+new Chart(document.getElementById('cRadar'),{
+  type:'radar',
+  data:{labels:['Speed','Stability','Reusability','Maintainability','Coverage','Self-Healing'],
+    datasets:[
+      {label:'AI Agentic',data:[9,9,9,8,9,9],backgroundColor:soft(PAL.lav,'55'),borderColor:PAL.accent,borderWidth:2,pointBackgroundColor:PAL.accent},
+      {label:'Traditional',data:[5,4,5,4,7,2],backgroundColor:soft(PAL.peach,'44'),borderColor:PAL.peach,borderWidth:2,pointBackgroundColor:PAL.peach}
+    ]},
+  options:{plugins:{legend:{position:'bottom',labels:{boxWidth:12,padding:14}}},
+    scales:{r:{min:0,max:10,grid:{color:'#F0EEF8'},angleLines:{color:'#F0EEF8'},pointLabels:{font:{size:11}},ticks:{display:false}}}}
+});
+
+// Reveal on scroll
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
