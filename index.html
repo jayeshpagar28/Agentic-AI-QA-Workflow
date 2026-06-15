@@ -55,6 +55,11 @@ a{color:var(--accent);text-decoration:none}
 .hstat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 14px;box-shadow:var(--shadow-sm)}
 .hstat .n{font-family:'Plus Jakarta Sans';font-weight:800;font-size:2.1rem;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .hstat .l{font-size:.78rem;color:var(--muted);font-weight:600;margin-top:3px}
+.team-strip{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:34px}
+.tm{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 20px;box-shadow:var(--shadow-sm);text-align:left}
+.tm-ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:18px;flex:none}
+.tm-role{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.tm-name{font-family:'Plus Jakarta Sans';font-weight:700;font-size:1rem;color:var(--ink)}
 
 /* SECTIONS */
 section.block{padding:64px 0;border-top:1px solid transparent}
@@ -167,6 +172,11 @@ td.good{color:#3C9D6B;font-weight:600} td.bad{color:#C9486A;font-weight:600} td.
       <div class="hstat"><div class="n">5</div><div class="l">Product Modules</div></div>
       <div class="hstat"><div class="n">3</div><div class="l">Autonomous AI Agents</div></div>
       <div class="hstat"><div class="n">19</div><div class="l">Page Object Models</div></div>
+    </div>
+    <div class="team-strip">
+      <div class="tm"><span class="tm-ic b-mint">🧪</span><div><div class="tm-role">Test Engineer</div><div class="tm-name">Jayesh Pagar</div></div></div>
+      <div class="tm"><span class="tm-ic b-lav">🧭</span><div><div class="tm-role">Manager</div><div class="tm-name">Chaitanya Tipre</div></div></div>
+      <div class="tm"><span class="tm-ic b-peach">📋</span><div><div class="tm-role">Project Manager</div><div class="tm-name">Sudharshan Lokhande</div></div></div>
     </div>
   </div>
 </header>
@@ -647,7 +657,8 @@ flowchart TD
 
 <footer class="foot">
   EcomCircles · AI Agentic Test Automation Framework — Technical Strategy Presentation · Generated 2026-06-15<br/>
-  <span style="opacity:.7">Built on Playwright · TypeScript · Claude Agent SDK · Model Context Protocol</span>
+  <span style="opacity:.7">Built on Playwright · TypeScript · Claude Agent SDK · Model Context Protocol</span><br/><br/>
+  <span style="opacity:.85"><b>Test Engineer:</b> Jayesh Pagar &nbsp;·&nbsp; <b>Manager:</b> Chaitanya Tipre &nbsp;·&nbsp; <b>Project Manager:</b> Sudharshan Lokhande</span>
 </footer>
 
 <script>
